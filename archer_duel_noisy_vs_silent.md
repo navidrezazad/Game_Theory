@@ -248,8 +248,7 @@ Either player can improve by firing an instant earlier. For example,
 $$
 U_1^N(r+\varepsilon,r)
 =1-r-\varepsilon
-=r^2-\varepsilon
->r^4
+=r^2-\varepsilon>r^4
 $$
 
 for sufficiently small $\varepsilon>0$.
@@ -273,9 +272,7 @@ Therefore,
 
 $$
 \Pr(\text{Archer 1 wins})
-=
-\Pr(\text{Archer 2 misses})
-\Pr(\text{Archer 1 hits}).
+=\Pr(\text{Archer 2 misses})\Pr(\text{Archer 1 hits}).
 $$
 
 That product is the defining feature of the silent version.
@@ -481,8 +478,7 @@ By choosing $r+\varepsilon$, Archer 2 fires first and obtains
 $$
 1-(r+\varepsilon)^2
 \longrightarrow
-1-r^2=r
->r^2.
+1-r^2=r>r^2.
 $$
 
 Therefore, $(r,r)$ is not a pure-strategy Nash equilibrium. Each archer wants to be an instant ahead of the other.

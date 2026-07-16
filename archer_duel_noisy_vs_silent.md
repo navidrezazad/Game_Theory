@@ -56,36 +56,40 @@ We use the following basic outcome convention:
 - if both archers survive after using their arrows, the result is a draw;
 - the two hit events are independent if shots are simultaneous.
 
-The important difference between the two games is what a miss reveals.
+The key difference between the two games is what a miss reveals.
 
 ### Noisy duel
 
-Every shot is heard. If an archer misses, the opponent immediately knows that the archer is now unarmed and can change plans.
+In the noisy duel, hearing the opponent miss changes what you do next. A strategy is not merely “shoot at $x_i$.” It is a contingent rule: when to shoot while both archers are armed, and what to do after hearing the opponent fire.
 
 ### Silent duel
 
-A missed shot is completely unobservable. The opponent neither hears the release nor sees evidence that the arrow has been spent. Unless someone is hit, each archer must continue according to a plan chosen in advance.
-
-This single informational change alters the meaning of a strategy:
-
-- in the noisy duel, a strategy is a contingent rule—when to shoot while both are armed and what to do after hearing a miss;
-- in the silent duel, a strategy is a precommitted firing point or, in equilibrium, a probability distribution over firing points.
+A missed shot gives the opponent no information, so neither archer can change strategy after a miss. A strategy is therefore a planned firing point—or, in equilibrium, a probability distribution over firing points.
 
 ## 2. The noisy duel: a miss becomes a message
 
 ### 2.1 The story
 
-Suppose Archer 1 fires first at coordinate $x$.
+The archers begin far apart and walk toward each other. As $x$ decreases, they get closer and become more accurate.
 
-If the arrow hits, Archer 1 wins. If it misses, the sound of the shot tells Archer 2 three things at once:
+Suppose Archer 1 shoots first.
 
-1. Archer 1 fired.
-2. Archer 1 missed.
-3. Archer 1 has no arrow left.
+- If he hits, he wins.
+- If he misses, Archer 2 hears the shot.
+- Archer 2 now knows Archer 1 has no arrow left.
+- Therefore, Archer 2 does not need to shoot immediately. He can walk all the way to $x=0$, where his hit probability is one, and win for certain.
 
-Archer 2 no longer needs to take a risky shot. He can lower his bow, continue walking, and wait until $x=0$, where his hit probability is one.
+Thus, when Archer 1 fires first at $x$, his eventual winning probability is simply his probability of hitting that shot, $p_1(x)$. If Archer 1 instead lets Archer 2 shoot first, Archer 1 wins exactly when Archer 2 misses, with probability $q_2(x)$.
 
-The first miss is therefore not merely a failed attack. It is a confession: “I am unarmed.” That is why the first shooter's probability of winning is just the probability that the first shot hits.
+So Archer 1 faces the comparison
+
+$$
+\underbrace{p_1(x)}_{\text{shoot first}}
+\quad\text{versus}\quad
+\underbrace{q_2(x)}_{\text{let Archer 2 shoot}}.
+$$
+
+The same logic applies to Archer 2.
 
 ### 2.2 Payoffs when one player fires first
 
@@ -187,10 +191,7 @@ $$
 p_2(r)=q_1(r)=r\approx0.618034.
 $$
 
-The road now has an invisible strategic line:
-
-- when $x>r$, the archers are still relatively far apart, and each prefers that the other waste the first arrow;
-- when $x<r$, they are close enough that each prefers to shoot before the other.
+Far away, both archers are inaccurate, so each wants the other person to waste their arrow first. Very close, both are accurate, so each wants to shoot before the other. The equilibrium threshold is the boundary between these two regions.
 
 Indeed, for $x>r$,
 
@@ -200,7 +201,9 @@ p_1(x)<q_2(x),
 p_2(x)<q_1(x),
 $$
 
-whereas both inequalities reverse for $x<r$.
+so both prefer to wait and let the opponent shoot. For $x<r$, both inequalities reverse, so both prefer to shoot before the opponent. Therefore, $r$ separates the waiting region from the preemption region.
+
+The threshold equation $1-x=x^2$ comes from this noisy-duel reasoning because it assumes that, after hearing a miss, the surviving archer can safely wait until point-blank range.
 
 ### 2.4 A natural noisy-duel equilibrium
 
@@ -251,21 +254,22 @@ $$
 
 for sufficiently small $\varepsilon>0$.
 
-Thus $r$ is always the important noisy-duel threshold, but the statement “both shoot at $r$” is an exact pure equilibrium only after the simultaneous-action rule is specified appropriately. Under literal simultaneous independent fire, one needs an equilibrium refinement, timing randomization, or an $\varepsilon$-equilibrium interpretation.
+The exact treatment of both shooting at precisely $r$ depends on the simultaneous-fire rule. With random priority at a tie, $r$ can support the natural pure equilibrium. With literal simultaneous independent shots, the tie payoff must be specified, and an $\varepsilon$-equilibrium or mixed strategy may be needed.
 
-This is not a technical footnote to ignore: discontinuous timing games are often decided precisely by what happens at a tie.
-
-## 3. The silent duel: the forest swallows the sound
+## 3. The silent duel: a miss gives no information
 
 ### 3.1 The story
 
-Now imagine that the bowstring, arrow, and impact make no sound at all. A missed arrow vanishes into the darkness.
+The archers move closer as $x$ falls from $1$ to $0$. Before the duel, each secretly selects a firing point, $x_1$ or $x_2$. Because a larger $x$ occurs earlier, $x_2>x_1$ means Archer 2 fires first.
 
-Before the duel, Archer 1 privately writes a firing point $x_1$ on a slip of paper. Archer 2 privately writes $x_2$. Each promises to fire when the shrinking distance reaches the chosen number.
+Suppose Archer 2 fires first.
 
-Suppose Archer 2 chose the larger coordinate and therefore fires first. If Archer 2 hits, the duel ends. If Archer 2 misses, Archer 1 receives no message. Archer 1 keeps walking and fires only when the distance reaches the preselected $x_1$.
+- If Archer 2 hits, the duel ends.
+- If Archer 2 misses, Archer 1 does not know that a shot occurred.
+- Archer 1 simply continues according to his original plan and fires at $x_1$.
+- Archer 1 wins only if Archer 2 missed and Archer 1 subsequently hits.
 
-Archer 1 must therefore survive Archer 2's shot and then hit with his own:
+Therefore,
 
 $$
 \Pr(\text{Archer 1 wins})
@@ -274,7 +278,9 @@ $$
 \Pr(\text{Archer 1 hits}).
 $$
 
-The multiplication is the signature of the silent duel. The second archer cannot hear a miss and replace the original plan with a point-blank shot.
+That product is the defining feature of the silent version.
+
+In the noisy version, after hearing Archer 2 miss, Archer 1 can safely wait until $x=0$, where he hits with probability one. In the silent version, Archer 1 cannot react; his later firing point had to be selected beforehand.
 
 ### 3.2 Pure-strategy payoff functions
 
@@ -352,11 +358,11 @@ $$
 
 ### 3.3 Why the same golden-ratio threshold appears
 
-Suppose Archer 2 has announced a deterministic point $x_2>0$. Archer 1 has two strategically relevant responses.
+Suppose Archer 2 has committed to a deterministic point $x_2>0$. Archer 1 has two meaningful possibilities.
 
-#### Response A: fire just before Archer 2
+#### Option A: shoot just before Archer 2
 
-Archer 1 chooses
+To fire first, Archer 1 needs $x_1>x_2$. But he should not shoot substantially earlier because his accuracy becomes worse as $x_1$ increases. Therefore, he chooses
 
 $$
 x_1=x_2+\varepsilon,
@@ -371,7 +377,7 @@ $$
 =1-x_2.
 $$
 
-#### Response B: deliberately go second
+#### Option B: let Archer 2 shoot first
 
 If $x_1<x_2$, Archer 1's payoff is
 
@@ -379,7 +385,7 @@ $$
 x_2^2(1-x_1).
 $$
 
-Once he has decided to go second, he should maximize the accuracy of the planned second shot by choosing $x_1=0$. His payoff then becomes
+Once Archer 1 has decided to shoot second, this expression is maximized by waiting as long as possible, so he chooses $x_1=0$. Then Archer 1 hits with certainty, and his winning probability becomes
 
 $$
 x_2^2.
@@ -399,7 +405,7 @@ $$
 1-x_2=x_2^2.
 $$
 
-Likewise, Archer 2 compares $1-x_1^2$ with $x_1$, producing
+Archer 2's reasoning is parallel. If he shoots just before Archer 1, his winning probability approaches $1-x_1^2$. If he lets Archer 1 shoot first, Archer 1 misses with probability $x_1$. Archer 2 can precommit to firing at $x_2=0$, where he hits for certain. Thus Archer 2 compares $1-x_1^2$ with $x_1$, and indifference requires
 
 $$
 1-x_1^2=x_1.
@@ -413,14 +419,16 @@ $$
 
 appears again.
 
-But the stories behind the same equation are different:
+The noisy and silent versions produce the same threshold equation, but for different reasons:
 
-- noisy duel: “I will hear your miss and then change my behavior.”
-- silent duel: “I cannot hear your miss, so I commit in advance to a point-blank second shot.”
+- noisy duel: “I will let you shoot, hear whether you missed, and then change my behavior.”
+- silent duel: “I cannot hear your miss, but I can commit in advance to shooting at $x=0$. If you fired earlier and missed, I will eventually reach my planned point and win.”
 
-The optimized comparison happens to be the same. The games and their general payoff functions are not.
+For the optimized pure response, both yield the comparison “shoot just before” versus “wait until $0$.” But their general payoff functions are different.
 
 ## 4. Why $(r,r)$ is not a silent-duel equilibrium
+
+The value $r$ is an indifference threshold, but it is not automatically a pure-strategy equilibrium.
 
 ### 4.1 Archer 1 moves one heartbeat earlier
 
@@ -477,7 +485,7 @@ $$
 >r^2.
 $$
 
-So neither player is willing to remain at the deterministic point $r$.
+Therefore, $(r,r)$ is not a pure-strategy Nash equilibrium. Each archer wants to be an instant ahead of the other.
 
 ### 4.2 The preemption race
 
@@ -521,9 +529,7 @@ At an equal interior point $0<x<1$, either archer can move to $x+\varepsilon$ an
 
 ### 5.1 The story
 
-The archers stop writing a fixed number on their slips.
-
-Instead, Archer 1 privately draws $X_1$ from a probability distribution, and Archer 2 privately draws $X_2$ from another distribution. Neither knows the other's realized number.
+The equilibrium must prevent the opponent from predicting exactly when you will shoot. Each archer therefore chooses a random firing point. Archer 1 privately draws $X_1$ from a probability distribution, and Archer 2 privately draws $X_2$ from another distribution. Neither knows the other's realized number.
 
 Now “shoot one heartbeat before the opponent” is no longer a usable plan. There is no known heartbeat to preempt.
 
@@ -708,7 +714,7 @@ F_2(x)=m_2+\int_0^x f_2(t)\,dt,
 \qquad 0<x\le a.
 $$
 
-Archer 1 continuously randomizes over $(0,a]$. Archer 2 uses the same positive support but, with probability about $6.9\%$, commits to waiting all the way to $x=0$.
+Both randomize over firing points between $0$ and approximately $0.678$. The stronger Archer 2 additionally waits until point-blank range with about $6.9\%$ probability.
 
 ### 5.4 What the numbers mean
 
@@ -746,6 +752,11 @@ Archer 2 is indifferent between the continuous support and the atom at $0$. Arch
 | Follower payoff after a shot at $y$ | $q_j(y)$ | $q_j(y)p_i(x_i)$ |
 | Role of $r\approx0.618$ | Boundary between waiting and preemption | Best-response indifference threshold |
 | Equilibrium form under the conventions above | Natural pure threshold with sequential priority | Mixed timing strategy |
+
+The central distinction is:
+
+- **Noisy duel:** strategies can react to observed misses.
+- **Silent duel:** firing times must be planned without that information.
 
 The same equation,
 

@@ -116,7 +116,7 @@ Away from a simultaneous shot, the noisy-duel payoffs are therefore
 $$
 U_1^{N}(x_1,x_2)=
 \begin{cases}
-1-x_1, & x_1>x_2,\\[4pt]
+1-x_1, & x_1>x_2,\\
 x_2^2, & x_2>x_1,
 \end{cases}
 $$
@@ -126,7 +126,7 @@ and
 $$
 U_2^{N}(x_1,x_2)=
 \begin{cases}
-x_1, & x_1>x_2,\\[4pt]
+x_1, & x_1>x_2,\\
 1-x_2^2, & x_2>x_1.
 \end{cases}
 $$
@@ -319,7 +319,7 @@ Consequently,
 $$
 U_1^S(x_1,x_2)=
 \begin{cases}
-1-x_1, & x_1>x_2,\\[4pt]
+1-x_1, & x_1>x_2,\\
 x_2^2(1-x_1), & x_2>x_1,
 \end{cases}
 $$
@@ -329,7 +329,7 @@ and
 $$
 U_2^S(x_1,x_2)=
 \begin{cases}
-x_1(1-x_2^2), & x_1>x_2,\\[4pt]
+x_1(1-x_2^2), & x_1>x_2,\\
 1-x_2^2, & x_2>x_1.
 \end{cases}
 $$

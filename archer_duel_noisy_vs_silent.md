@@ -205,21 +205,45 @@ so both prefer to wait and let the opponent shoot. For $x<r$, both inequalities 
 
 The threshold equation $1-x=x^2$ comes from this noisy-duel reasoning because it assumes that, after hearing a miss, the surviving archer can safely wait until point-blank range.
 
-### 2.4 A natural noisy-duel equilibrium
+### 2.4 The main noisy model: sequential priority at a tie
 
-An exact equilibrium at a common deterministic firing point requires a rule for what happens when both archers try to act at the same instant. A standard noisy-duel convention is sequential priority at a tie: a fair random device selects one archer to act first, and if that shot misses, the other hears it and may revise the plan.
+Two different rules must be kept separate:
 
-Under that convention, the following is a (weak) Nash equilibrium:
+- The **noisy rule** says that a miss is heard, so an archer who has not yet fired may react to it.
+- The **tie rule** says what happens when both archers try to fire at exactly the same coordinate.
 
-1. while both archers are armed, wait until $x=r$;
-2. at $r$, use the priority rule to determine who fires first;
-3. if that shot misses, the armed archer waits until $x=0$ and then fires.
+The word *noisy* by itself does not determine the tie rule. This chapter's main noisy-duel equilibrium uses sequential priority: a fair random device selects one archer to act first at a tie.
 
-Why does no one deviate?
+| Tie rule | What happens when both choose $r$? | Can the other archer react to the first miss? | Consequence |
+|---|---|---|---|
+| Sequential priority | One archer is selected to shoot first. | Yes. The other arrow has not been fired. | $(r,r)$ is a weak Nash equilibrium. |
+| Literal simultaneous fire | Both arrows are released at the same instant. | No. Both arrows are already in flight. | $(r,r)$ is not a Nash equilibrium. |
 
-- Shooting earlier means choosing $x>r$. Accuracy is then lower, and $p_i(x)<p_i(r)$.
-- Waiting beyond $r$ lets the opponent fire first. The player's probability of winning is then the opponent's miss probability at $r$, which equals the player's equilibrium value.
-- At $r$, being selected as the first or second mover gives the same value because $p_1(r)=q_2(r)$ and $p_2(r)=q_1(r)$.
+Under sequential priority, play at the threshold works as follows:
+
+1. while both archers are armed, they wait until $x=r$;
+2. at $r$, the priority rule selects one archer to shoot first;
+3. if that shot hits, the duel ends;
+4. if it misses, the other archer hears the miss, waits until $x=0$, and then fires with certainty.
+
+At $r$, each archer is indifferent between being selected first and second. For Archer 1,
+
+$$
+p_1(r)=q_2(r)=r^2.
+$$
+
+If he shoots first, he wins by hitting with probability $p_1(r)$. If Archer 2 shoots first, Archer 1 wins when Archer 2 misses, with probability $q_2(r)$. These probabilities are equal. Similarly, for Archer 2,
+
+$$
+p_2(r)=q_1(r)=r.
+$$
+
+Now consider a unilateral deviation:
+
+- **Move earlier:** choosing $x>r$ means shooting sooner but with lower accuracy, so $p_i(x)<p_i(r)$.
+- **Move later:** the opponent shoots at $r$ first. The deviating archer wins only if that shot misses, which gives exactly the same value as at $r$, not a larger value.
+
+Therefore, no archer can obtain a strictly higher payoff by changing alone. The equilibrium is called **weak** because moving later can give the same payoff, even though it cannot give a better one.
 
 The equilibrium win probabilities are
 
@@ -229,31 +253,41 @@ V_1^N=r^2\approx0.381966,
 V_2^N=r\approx0.618034.
 $$
 
-They add to one because, under this strategy, a first miss is followed by a certain point-blank hit.
+They add to one because a first miss is followed by a certain point-blank hit.
 
-### 2.5 Why the tie convention must be stated
+### 2.5 The alternative noisy model: literal simultaneous fire
 
-Suppose instead that both archers literally fire simultaneously at $r$, the two hit events are independent, and a player wins only by hitting while the opponent misses. Then
+Now suppose both archers literally fire at the same instant when they choose the same coordinate. The duel is still noisy: a miss is observable whenever one archer fires before the other. But at an exact tie, the sound cannot affect either decision because both arrows have already been released.
 
-$$
-U_1^N(r,r)=p_1(r)q_2(r)=r^4,
-$$
+Assume the two hit events are independent and a player is the sole winner only by hitting while the opponent misses. At $(r,r)$,
 
 $$
-U_2^N(r,r)=p_2(r)q_1(r)=r^2.
+U_1^N(r,r)=p_1(r)q_2(r)=r^4\approx0.145898,
 $$
 
-Either player can improve by firing an instant earlier. For example,
-
 $$
-U_1^N(r+\varepsilon,r)
-=1-r-\varepsilon
-=r^2-\varepsilon>r^4
+U_2^N(r,r)=p_2(r)q_1(r)=r^2\approx0.381966.
 $$
 
-for sufficiently small $\varepsilon>0$.
+The $\varepsilon$-test asks whether either archer can improve by moving one heartbeat earlier. Remember that the distance is decreasing, so $r+\varepsilon$ occurs before $r$.
 
-The exact treatment of both shooting at precisely $r$ depends on the simultaneous-fire rule. With random priority at a tie, $r$ can support the natural pure equilibrium. With literal simultaneous independent shots, the tie payoff must be specified, and an $\varepsilon$-equilibrium or mixed strategy may be needed.
+For Archer 1,
+
+$$
+U_1^N(r+\varepsilon,r)=1-r-\varepsilon=r^2-\varepsilon>r^4
+$$
+
+for sufficiently small $\varepsilon>0$. His payoff rises from about $0.146$ to nearly $0.382$.
+
+Archer 2 has the same incentive:
+
+$$
+U_2^N(r,r+\varepsilon)=1-(r+\varepsilon)^2\longrightarrow r>r^2=U_2^N(r,r).
+$$
+
+His payoff rises from about $0.382$ to nearly $0.618$. Thus both archers want to move slightly earlier, so $(r,r)$ is not a Nash equilibrium under literal simultaneous firing.
+
+Both versions are noisy because a non-simultaneous miss is heard. What changes is only the treatment of an exact tie: sequential priority leaves one archer able to react, whereas literal simultaneous fire does not.
 
 ## 3. The silent duel: a miss gives no information
 

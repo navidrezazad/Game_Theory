@@ -837,19 +837,13 @@ $$
 Archer 1's equilibrium density is
 
 $$
-\boxed{
-f_1(x)
-=\frac{2x(1-a^2)}{(1-x^2)^2(1-x)},
-\qquad 0<x\le a.}
+\boxed{f_1(x)=\frac{2x(1-a^2)}{(1-x^2)^2(1-x)},\qquad 0\lt x\le a.}
 $$
 
 Archer 2's continuous density is
 
 $$
-\boxed{
-f_2(x)
-=\frac{1-a}{(1-x)^2(1-x^2)},
-\qquad 0<x\le a.}
+\boxed{f_2(x)=\frac{1-a}{(1-x)^2(1-x^2)},\qquad 0\lt x\le a.}
 $$
 
 That continuous part has total probability approximately

@@ -2,7 +2,13 @@
 
 A standalone bank of **170 public, classical, or semi-classical game-theory problems** selected for the kinds of reasoning useful in quantitative research and trading interviews: equilibrium analysis, probability, strategic information, optimization, market design, stochastic processes, and discrete invariants.
 
-> **Scope note:** These are original restatements of well-known public problems and models. They are not claimed to be actual, leaked, or proprietary questions from any firm. Only titles and problem statements are included; there are no solutions.
+> **Scope note:** These are original restatements of well-known public problems and models. They are not claimed to be actual, leaked, or proprietary questions from any firm. The bank contains titles and problem statements; completed solutions are linked below.
+
+## Solution tracker
+
+| # | Problem | Status | Solution |
+|---:|---|---|---|
+| 76 | Chatterjee–Samuelson Double Auction | ✅ Solved | [Read solution](076_chatterjee_samuelson_double_auction.md) |
 
 ## Contents
 

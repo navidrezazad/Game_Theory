@@ -40,7 +40,7 @@ The sale rule is:
 
 - If $b\geq a$, Ben buys the bike at price $p=(a+b)/2$.
 
-- If $b<a$, no sale occurs.
+- If $b\lt a$, no sale occurs.
 
 If trade occurs, their gains are
 
@@ -237,7 +237,7 @@ The second derivative is negative:
 ```math
 \frac{\partial^2\Pi_B}{\partial x^2}
 =
--\frac{3}{2\beta}<0.
+-\frac{3}{2\beta}\lt 0.
 ```
 
 Thus, expected gain is strictly concave within this range. The first-order condition gives its unique maximum there.
@@ -386,7 +386,7 @@ The second derivative is
 ```math
 \frac{\partial^2\Pi_S}{\partial y^2}
 =
--\frac{3}{2\delta}<0.
+-\frac{3}{2\delta}\lt 0.
 ```
 
 This gives the unique maximum within the relevant range.
@@ -540,7 +540,7 @@ These ranges identify which types can trade.
 Their proposed bids satisfy
 
 ```math
-\frac14<b(v)\leq\frac34.
+\frac14\lt b(v)\leq\frac34.
 ```
 
 These bids lie inside the seller’s ask range. The strict concavity calculation therefore applies.
@@ -575,12 +575,12 @@ Its expected gain is zero. Therefore, it is a best response.
 
 At $v=1/4$, the bid can match the ask of seller type $c=0$. That seller type has probability zero.
 
-### Sellers with $c<3/4$
+### Sellers with $c\lt 3/4$
 
 Their proposed asks satisfy
 
 ```math
-\frac14\leq a(c)<\frac34.
+\frac14\leq a(c)\lt \frac34.
 ```
 
 These asks lie inside the buyer’s bid range. The strict concavity calculation again applies.
@@ -615,7 +615,7 @@ This establishes the Bayesian Nash equilibrium.
 
 ### A subtle feature of the inactive types
 
-For a buyer with $v<1/4$, the formula gives
+For a buyer with $v\lt 1/4$, the formula gives
 
 ```math
 b(v)>v.
@@ -626,7 +626,7 @@ This does not cause a loss in equilibrium. The bid remains below every seller’
 For a seller with $c>3/4$, the formula gives
 
 ```math
-a(c)<c.
+a(c)\lt c.
 ```
 
 This also causes no loss in equilibrium. The ask remains above every buyer’s bid.
@@ -709,7 +709,7 @@ Thus, a rule that captures every positive gain would trade whenever $v>c$.
 The equilibrium has a stricter requirement. It loses all trades for which
 
 ```math
-\boxed{0<v-c<\frac14.}
+\boxed{0\lt v-c\lt \frac14.}
 ```
 
 The diagram shows this lost-trade region. Change the cost or value to inspect a pair.
@@ -878,7 +878,7 @@ The corresponding seller calculation gives
 \boxed{
 U_S(c)=
 \begin{cases}
-\frac12\left(\frac34-c\right)^2,&c<\frac34,\\[4pt]
+\frac12\left(\frac34-c\right)^2,&c\lt \frac34,\\[4pt]
 0,&c\geq\frac34.
 \end{cases}
 }

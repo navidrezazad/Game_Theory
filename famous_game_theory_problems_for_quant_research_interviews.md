@@ -6,9 +6,9 @@ A standalone bank of **170 public, classical, or semi-classical game-theory prob
 
 ## Solution tracker
 
-| # | Problem | Status | Solution |
-|---:|---|---|---|
-| 76 | Chatterjee–Samuelson Double Auction | ✅ Solved | [Read solution](076_chatterjee_samuelson_double_auction.md) |
+| # | Problem | Status | Solution | Pro chat |
+|---:|---|---|---|---|
+| 76 | Chatterjee–Samuelson Double Auction | ✅ Solved | [Read solution](076_chatterjee_samuelson_double_auction.md) | [Source](https://chatgpt.com/c/6af8cab1-11dc-83e8-9251-912af4886bf8) |
 
 ## Contents
 

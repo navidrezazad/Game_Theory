@@ -1,479 +1,968 @@
-## Equilibrium
+# 76 — Chatterjee–Samuelson Double Auction
 
-The canonical **nondegenerate, increasing linear Bayesian Nash equilibrium** is
-
-```math
-\boxed{a^*(c)=\frac23c+\frac14}
-```
-
-for the seller, and
+The standard linear Bayesian Nash equilibrium is
 
 ```math
-\boxed{b^*(v)=\frac23v+\frac1{12}}
-```
-
-for the buyer.
-
-Therefore,
-
-```math
-b^*(v)\ge a^*(c)
-\quad\Longleftrightarrow\quad
-v-c\ge \frac14.
-```
-
-So trade occurs only when the buyer values the object at least $1/4$ more than the seller’s cost. When trade occurs, the price is
-
-```math
-\boxed{
-p(c,v)=\frac{a^*(c)+b^*(v)}2
-      =\frac{c+v}{3}+\frac16.
-}
-```
-
----
-
-# The economic story
-
-Imagine the buyer standing on one side of a foggy bridge and the seller on the other.
-
-The buyer knows $v$, but not $c$. Raising his bid does two things:
-
-1. It opens the bridge to more seller types.
-2. It raises the price by half the bid increase in every trade that was already going to occur.
-
-The seller faces the mirror image. Raising her ask gives her a better price in trades that still occur, but causes her to lose some buyers.
-
-The equilibrium is where each side balances these two effects exactly.
-
----
-
-# 1. The buyer’s best response
-
-Suppose the seller uses a general increasing linear ask
-
-```math
-a(c)=\alpha c+\beta,
-\qquad \alpha>0.
-```
-
-A buyer of type $v$ considers submitting a bid $x$.
-
-He trades with sellers satisfying
-
-```math
-x\ge \alpha c+\beta.
-```
-
-Thus the highest-cost seller willing to trade is
-
-```math
-\widehat c(x)=\frac{x-\beta}{\alpha}.
-```
-
-For the moment, suppose this cutoff lies strictly between $0$ and $1$. Because $c\sim U[0,1]$, the buyer’s expected payoff is
-
-```math
-U_B(x;v)
-=
-\int_0^{\widehat c(x)}
-\left[
-v-\frac{x+\alpha c+\beta}{2}
-\right]dc.
-```
-
-There are two consequences of marginally increasing $x$.
-
-- On all existing trades, the price rises by $1/2$ of the bid increase.
-- A small additional group of sellers becomes willing to trade.
-
-Differentiating,
-
-```math
-\frac{\partial U_B}{\partial x}
-=
--\frac{\widehat c(x)}2
-+
-\frac{v-x}{\alpha}.
-```
-
-The second term is the gain from attracting the marginal seller. At the cutoff, that seller asks exactly $x$, so the buyer’s surplus from that marginal trade is $v-x$.
-
-Substituting
-
-```math
-\widehat c(x)=\frac{x-\beta}{\alpha},
-```
-
-we get
-
-```math
-\frac{\partial U_B}{\partial x}
-=
-\frac{v-x-\frac12(x-\beta)}{\alpha}
-=
-\frac{2v-3x+\beta}{2\alpha}.
-```
-
-The first-order condition is therefore
-
-```math
-2v-3x+\beta=0,
-```
-
-or
-
-```math
-x^*(v)=\frac23v+\frac13\beta.
-```
-
-Moreover,
-
-```math
-\frac{\partial^2 U_B}{\partial x^2}
-=
--\frac{3}{2\alpha}<0,
-```
-
-so this is indeed the unique optimum whenever the buyer trades with a nontrivial interval of seller types.
-
-Consequently, if the buyer’s equilibrium bid has the form
-
-```math
-b(v)=\gamma v+\delta,
-```
-
-then the buyer’s best-response conditions imply
-
-```math
-\boxed{\gamma=\frac23},
+\boxed{a(c)=\frac23c+\frac14},
 \qquad
-\boxed{\delta=\frac{\beta}{3}}.
+\boxed{b(v)=\frac23v+\frac1{12}}.
 ```
 
----
-
-# 2. The seller’s best response
-
-Now suppose the buyer uses a general increasing linear bid
+These strategies give the following trade condition:
 
 ```math
-b(v)=\gamma v+\delta,
-\qquad \gamma>0.
+\boxed{\text{Trade occurs if and only if }v-c\geq\frac14.}
 ```
 
-A seller with cost $c$ considers submitting ask $y$.
+This is the standard Chatterjee–Samuelson equilibrium for the midpoint price rule. [gwern.net](https://gwern.net/doc/economics/mechanism-design/auction/1983-chatterjee.pdf?utm_source=chatgpt.com)
+
+Here, “linear” permits a constant term. The precise mathematical term is **affine**.
+
+We use the standard payoff assumption: each person maximizes expected money gain. This assumption means that both people are **risk neutral**.
+
+## 1. The story: one bike and two private numbers
+
+Maya owns a bike. Ben wants to buy it.
+
+Maya knows her cost $c$. This cost measures what she gives up when she sells the bike. Ben knows his value $v$. This value measures what the bike is worth to him.
+
+Each person knows only their own number. Both know that the other number has a uniform distribution on $[0,1]$.
+
+For the story, let one unit equal \$1,000. Thus, $c=0.30$ means a cost of \$300.
+
+Maya and Ben each write an offer on a card. They submit their cards at the same time.
+
+The sale rule is:
+
+- Maya submits an ask $a$.
+
+- Ben submits a bid $b$.
+
+- If $b\geq a$, Ben buys the bike at price $p=(a+b)/2$.
+
+- If $b<a$, no sale occurs.
+
+If trade occurs, their gains are
+
+```math
+u_S=p-c,
+\qquad
+u_B=v-p.
+```
+
+If no trade occurs, both gains are zero.
+
+### Each offer changes two things
+
+A higher ask increases Maya’s price in sales that still occur. But it also removes some possible buyers.
+
+A higher bid increases Ben’s chance of a purchase. But it also increases his price in purchases that would already occur.
+
+**Each person must balance the price against the chance of trade.**
+
+This balance determines the equilibrium.
+
+## 2. What an equilibrium must establish
+
+A **strategy** gives an offer for each possible private number.
+
+The seller uses $a(c)$. The buyer uses $b(v)$.
+
+A **best response** gives the largest expected gain against the other person’s strategy. A Bayesian Nash equilibrium makes each person’s strategy a best response.
+
+The word “Bayesian” concerns the unknown private information. Each person calculates expected gain over the other person’s possible private number.
+
+Independence matters here. Knowledge of $v$ gives the buyer no information about $c$. Knowledge of $c$ gives the seller no information about $v$.
+
+We will find the equilibrium in two stages:
+
+1. Find straight-line strategies that satisfy the best-response equations.
+
+2. Check that no possible bid or ask gives a larger expected gain.
+
+The second stage is necessary. A first-order condition alone does not establish equilibrium.
+
+We restrict the **candidate strategies** to straight lines. We will permit **all possible quotes** when we check deviations.
+
+### Start with unknown coefficients
+
+Write
+
+```math
+a(c)=\alpha+\beta c,
+\qquad
+b(v)=\gamma+\delta v,
+```
+
+where
+
+```math
+\beta>0,\qquad \delta>0.
+```
+
+Thus, higher seller costs produce higher asks. Higher buyer values produce higher bids.
+
+Because the private numbers are uniform, the offers are also uniform:
+
+```math
+a(c)\sim U[\alpha,\alpha+\beta],
+```
+
+```math
+b(v)\sim U[\gamma,\gamma+\delta].
+```
+
+We first examine quotes inside the other person’s offer range. We will check quotes outside these ranges later.
+
+## 3. Find the buyer’s best response
+
+Fix the seller’s strategy:
+
+```math
+a(c)=\alpha+\beta c.
+```
+
+Suppose that a buyer with value $v$ submits an arbitrary bid $x$.
+
+The letter $x$ represents a choice. We have not yet imposed the proposed strategy $b(v)$.
+
+### Step 1: Identify the sellers who trade
 
 Trade occurs when
 
 ```math
-\gamma v+\delta\ge y.
+x\geq\alpha+\beta c.
 ```
 
-Thus the lowest-value buyer who trades is
+Since $\beta>0$,
 
 ```math
-\widehat v(y)=\frac{y-\delta}{\gamma}.
+c\leq\frac{x-\alpha}{\beta}.
 ```
 
-The seller’s expected payoff is
+For a bid inside the seller’s offer range, define
 
 ```math
-U_S(y;c)
+t=\frac{x-\alpha}{\beta}\in[0,1].
+```
+
+The buyer trades with sellers whose costs lie between $0$ and $t$.
+
+Since seller cost is uniform,
+
+```math
+\Pr(\text{trade}\mid x)=t
+=\frac{x-\alpha}{\beta}.
+```
+
+**Lay explanation:** The buyer chooses how much of the seller population to include. A higher bid includes sellers with higher costs.
+
+### Step 2: Calculate the average price when trade occurs
+
+Conditional on trade, seller cost is uniform on $[0,t]$. Therefore,
+
+```math
+\mathbb E[c\mid\text{trade}]=\frac t2.
+```
+
+The average ask among those sellers is
+
+```math
+\mathbb E[a(c)\mid\text{trade}]
+=\alpha+\beta\frac t2
+=\frac{\alpha+x}{2}.
+```
+
+The transaction price averages the buyer’s bid and the seller’s ask. Thus,
+
+```math
+\mathbb E[p\mid\text{trade}]
 =
-\int_{\widehat v(y)}^1
-\left[
-\frac{y+\gamma v+\delta}{2}-c
-\right]dv.
+\frac12\left(x+\frac{\alpha+x}{2}\right)
+=
+\frac{3x+\alpha}{4}.
 ```
 
-Increasing the ask has two effects:
+The conditioning is important. Sellers who trade with this buyer have asks no greater than $x$.
 
-- It raises the price by half the ask increase in every continuing trade.
-- It loses the marginal buyers whose bids are just below the new ask.
+We must use the average ask among those sellers.
 
-Differentiating gives
+### Step 3: Write expected gain
+
+Expected gain equals the trade probability multiplied by the average gain from a trade:
 
 ```math
-\frac{\partial U_S}{\partial y}
+\Pi_B(x;v)
 =
-\frac{1-\widehat v(y)}2
+\frac{x-\alpha}{\beta}
+\left(v-\frac{3x+\alpha}{4}\right).
+```
+
+The same expression follows from the payoff integral:
+
+```math
+\Pi_B(x;v)
+=
+\int_0^{(x-\alpha)/\beta}
+\left[v-\frac{x+\alpha+\beta c}{2}\right]dc.
+```
+
+The integral includes every seller cost that permits trade. Costs outside this interval contribute zero.
+
+### Step 4: Maximize expected gain
+
+Differentiate with respect to $x$:
+
+```math
+\frac{\partial\Pi_B}{\partial x}
+=
+\frac1\beta
+\left(v-\frac32x+\frac12\alpha\right).
+```
+
+At an interior optimum,
+
+```math
+v-\frac32x+\frac12\alpha=0.
+```
+
+Therefore,
+
+```math
+\boxed{x=\frac23v+\frac13\alpha.}
+```
+
+The second derivative is negative:
+
+```math
+\frac{\partial^2\Pi_B}{\partial x^2}
+=
+-\frac{3}{2\beta}<0.
+```
+
+Thus, expected gain is strictly concave within this range. The first-order condition gives its unique maximum there.
+
+For the proposed buyer strategy to match this best response,
+
+```math
+\gamma+\delta v
+=
+\frac23v+\frac13\alpha.
+```
+
+Match the coefficients:
+
+```math
+\boxed{\delta=\frac23},
+\qquad
+\boxed{\gamma=\frac{\alpha}{3}}.
+```
+
+### The economic meaning of the derivative
+
+We can also write the derivative as
+
+```math
+\frac{\partial\Pi_B}{\partial x}
+=
+\underbrace{\frac{v-x}{\beta}}_{\text{gain from additional trades}}
 -
-\frac{y-c}{\gamma}.
+\underbrace{\frac{x-\alpha}{2\beta}}_{\text{higher price on existing trades}}.
 ```
 
-At the cutoff buyer, $b(\widehat v)=y$, so the seller’s profit on that marginal trade is $y-c$.
+A small bid increase admits more sellers. At the trade boundary, the seller’s ask equals $x$, so the buyer gains $v-x$.
 
-Substituting the cutoff,
+The same bid increase raises the price on every existing trade. The price rises by half of the bid increase.
+
+The best bid makes these two effects equal.
+
+## 4. Find the seller’s best response
+
+Now fix the buyer’s strategy:
 
 ```math
-\frac{\partial U_S}{\partial y}
+b(v)=\gamma+\delta v.
+```
+
+Define the highest possible buyer bid:
+
+```math
+\bar b=\gamma+\delta.
+```
+
+Suppose that a seller with cost $c$ submits an arbitrary ask $y$.
+
+### Step 1: Identify the buyers who trade
+
+Trade occurs when
+
+```math
+\gamma+\delta v\geq y.
+```
+
+Thus,
+
+```math
+v\geq\frac{y-\gamma}{\delta}.
+```
+
+For an ask inside the buyer’s offer range,
+
+```math
+\Pr(\text{trade}\mid y)
 =
-\frac{\gamma+\delta-y}{2\gamma}
+1-\frac{y-\gamma}{\delta}
+=
+\frac{\bar b-y}{\delta}.
+```
+
+**Lay explanation:** A higher ask removes buyers from the lower end of the accepted group.
+
+### Step 2: Calculate the average price when trade occurs
+
+Conditional on trade, buyer bids are uniform on $[y,\bar b]$. Therefore,
+
+```math
+\mathbb E[b(v)\mid\text{trade}]
+=
+\frac{y+\bar b}{2}.
+```
+
+The average transaction price is
+
+```math
+\mathbb E[p\mid\text{trade}]
+=
+\frac12\left(y+\frac{y+\bar b}{2}\right)
+=
+\frac{3y+\bar b}{4}.
+```
+
+### Step 3: Write and maximize expected gain
+
+The seller’s expected gain is
+
+```math
+\Pi_S(y;c)
+=
+\frac{\bar b-y}{\delta}
+\left(\frac{3y+\bar b}{4}-c\right).
+```
+
+Equivalently,
+
+```math
+\Pi_S(y;c)
+=
+\int_{(y-\gamma)/\delta}^{1}
+\left[\frac{y+\gamma+\delta v}{2}-c\right]dv.
+```
+
+Differentiate:
+
+```math
+\frac{\partial\Pi_S}{\partial y}
+=
+\frac1\delta
+\left(c+\frac12\bar b-\frac32y\right).
+```
+
+Set the derivative equal to zero:
+
+```math
+c+\frac12\bar b-\frac32y=0.
+```
+
+Hence,
+
+```math
+\boxed{y=\frac23c+\frac13\bar b}
+=
+\boxed{\frac23c+\frac13(\gamma+\delta)}.
+```
+
+The second derivative is
+
+```math
+\frac{\partial^2\Pi_S}{\partial y^2}
+=
+-\frac{3}{2\delta}<0.
+```
+
+This gives the unique maximum within the relevant range.
+
+Match this best response to the proposed seller strategy:
+
+```math
+\alpha+\beta c
+=
+\frac23c+\frac13(\gamma+\delta).
+```
+
+Therefore,
+
+```math
+\boxed{\beta=\frac23},
+\qquad
+\boxed{\alpha=\frac{\gamma+\delta}{3}}.
+```
+
+### The seller’s balance
+
+The derivative also has a direct economic form:
+
+```math
+\frac{\partial\Pi_S}{\partial y}
+=
+\underbrace{\frac{\bar b-y}{2\delta}}_{\text{higher price on remaining trades}}
 -
-\frac{y-c}{\gamma}
-=
-\frac{\gamma+\delta+2c-3y}{2\gamma}.
+\underbrace{\frac{y-c}{\delta}}_{\text{gain lost from excluded trades}}.
 ```
 
-The first-order condition is
+A higher ask raises the price in trades that remain. But it also excludes some buyers.
+
+At the boundary, an excluded buyer would have paid $y$. The seller loses gain $y-c$ from that trade.
+
+The best ask balances these effects.
+
+## 5. Solve the four coefficients
+
+The buyer’s best response gives
 
 ```math
-\gamma+\delta+2c-3y=0,
-```
-
-so
-
-```math
-y^*(c)
-=
-\frac23c+\frac{\gamma+\delta}{3}.
-```
-
-Again,
-
-```math
-\frac{\partial^2 U_S}{\partial y^2}
-=
--\frac{3}{2\gamma}<0,
-```
-
-so this is a maximum.
-
-Therefore the seller’s strategy coefficients satisfy
-
-```math
-\boxed{\alpha=\frac23},
+\delta=\frac23,
 \qquad
-\boxed{\beta=\frac{\gamma+\delta}{3}}.
+\gamma=\frac{\alpha}{3}.
 ```
 
----
-
-# 3. Solve the fixed-point equations
-
-The buyer’s best response gave
+The seller’s best response gives
 
 ```math
-\gamma=\frac23,
+\beta=\frac23,
 \qquad
-\delta=\frac{\beta}{3}.
+\alpha=\frac{\gamma+\delta}{3}.
 ```
 
-The seller’s best response gave
+Substitute the buyer’s conditions into the seller’s intercept condition:
 
 ```math
-\alpha=\frac23,
-\qquad
-\beta=\frac{\gamma+\delta}{3}.
-```
-
-Substitute $\gamma=2/3$ and $\delta=\beta/3$:
-
-```math
-\beta
+\alpha
 =
-\frac{\frac23+\frac{\beta}{3}}{3}.
+\frac{\alpha/3+2/3}{3}.
 ```
 
-Hence
+Multiply by $9$:
 
 ```math
-3\beta=\frac23+\frac{\beta}{3},
+9\alpha=\alpha+2.
 ```
 
-and multiplying by $3$,
+Therefore,
 
 ```math
-9\beta=2+\beta.
-```
-
-Therefore
-
-```math
-8\beta=2,
-\qquad
-\boxed{\beta=\frac14}.
+\alpha=\frac14.
 ```
 
 Then
 
 ```math
-\boxed{\delta=\frac{\beta}{3}=\frac1{12}}.
+\gamma=\frac{\alpha}{3}=\frac1{12}.
 ```
 
-Thus
+The candidate strategies are therefore
 
 ```math
 \boxed{
-a^*(c)=\frac23c+\frac14,
+a(c)=\frac23c+\frac14,
 \qquad
-b^*(v)=\frac23v+\frac1{12}.
+b(v)=\frac23v+\frac1{12}.
 }
 ```
 
----
+### Why both slopes equal two-thirds
 
-# 4. Boundary types and global verification
-
-The calculus above describes types that potentially trade. We must also verify the types that optimally stay out.
-
-## Low-value buyers
-
-The lowest seller ask is
+For an active buyer, the best-response equation is
 
 ```math
-a^*(0)=\frac14.
+v-b=\frac12(b-\alpha).
 ```
 
-For $v\le 1/4$,
+The buyer leaves some distance between the bid and the value. That distance equals half the distance between the bid and the lowest ask.
+
+Solving this balance produces the coefficient $2/3$.
+
+The seller faces the corresponding balance:
 
 ```math
-b^*(v)=\frac23v+\frac1{12}\le\frac14.
+a-c=\frac12(\bar b-a).
 ```
 
-Thus these buyers do not trade, except possibly with a probability-zero boundary seller.
+This also produces the coefficient $2/3$.
 
-This is optimal. For a buyer with $v<1/4$, the unconstrained optimal trading bid lies below the minimum ask. Any bid below $1/4$ gives zero payoff, while forcing trade by bidding above $1/4$ gives a nonpositive expected payoff.
+### Why the intercepts differ
 
-## High-cost sellers
+The buyer responds to the **lowest ask**. The seller responds to the **highest bid**.
 
-The highest buyer bid is
+These are different ends of the offer ranges. Their intercepts therefore differ.
+
+The strategies still satisfy a useful symmetry:
 
 ```math
-b^*(1)=\frac34.
+a(c)=1-b(1-c).
 ```
 
-For $c\ge 3/4$,
+You can verify this directly:
 
 ```math
-a^*(c)=\frac23c+\frac14\ge\frac34.
-```
-
-Thus these sellers do not trade, except possibly with a probability-zero boundary buyer.
-
-This is also optimal. For $c>3/4$, the seller’s unconstrained optimal trading ask lies above the maximum bid. Any ask above $3/4$ gives zero payoff, while lowering the ask enough to force trade gives a nonpositive expected payoff.
-
-The complete best-response behavior is therefore
-
-```math
-BR_B(v)=
-\begin{cases}
-\text{any bid no greater than }1/4, & v\le1/4,\\[4pt]
-\frac23v+\frac1{12}, & v>1/4,
-\end{cases}
-```
-
-and
-
-```math
-BR_S(c)=
-\begin{cases}
-\frac23c+\frac14, & c<3/4,\\[4pt]
-\text{any ask no less than }3/4, & c\ge3/4.
-\end{cases}
-```
-
-The displayed linear strategies select particular optimal actions for the nontrading types.
-
----
-
-# 5. What the equilibrium means
-
-Both sides strategically shade their offers.
-
-For an active buyer,
-
-```math
-v-b^*(v)
+1-b(1-c)
 =
-v-\left(\frac23v+\frac1{12}\right)
+1-\left[\frac23(1-c)+\frac1{12}\right]
 =
-\frac{v-\frac14}{3}.
+\frac23c+\frac14.
 ```
 
-So the buyer bids below his value.
+## 6. Check all types and all deviations
 
-For an active seller,
+We have found a candidate. We must now check the boundaries.
+
+The candidate offer ranges are
 
 ```math
-a^*(c)-c
-=
-\frac23c+\frac14-c
-=
-\frac{\frac34-c}{3}.
+a(c)\in\left[\frac14,\frac{11}{12}\right],
+\qquad
+b(v)\in\left[\frac1{12},\frac34\right].
 ```
 
-So the seller asks above her cost.
+These ranges identify which types can trade.
 
-These two forms of strategic shading create the no-trade wedge:
+### Buyers with $v>1/4$
+
+Their proposed bids satisfy
 
 ```math
-b^*(v)\ge a^*(c)
-\iff
+\frac14<b(v)\leq\frac34.
+```
+
+These bids lie inside the seller’s ask range. The strict concavity calculation therefore applies.
+
+The proposed bid gives positive expected gain. A bid below $1/4$ gives zero expected gain, because it cannot reach any seller.
+
+A bid above $11/12$ buys from every seller. A further increase changes no trade decision, but raises the price.
+
+Thus, no bid above $11/12$ improves on the bid $11/12$. The interior maximum already gives at least as much as that endpoint.
+
+This checks all possible bids for these buyers.
+
+### Buyers with $v\leq1/4$
+
+Every seller asks at least $1/4$.
+
+If a buyer causes trade, then
+
+```math
+p=\frac{a+b}{2}\geq a\geq\frac14.
+```
+
+A buyer with $v\leq1/4$ cannot obtain a positive gain from such a trade.
+
+The proposed strategy gives
+
+```math
+b(v)\leq\frac14.
+```
+
+Its expected gain is zero. Therefore, it is a best response.
+
+At $v=1/4$, the bid can match the ask of seller type $c=0$. That seller type has probability zero.
+
+### Sellers with $c<3/4$
+
+Their proposed asks satisfy
+
+```math
+\frac14\leq a(c)<\frac34.
+```
+
+These asks lie inside the buyer’s bid range. The strict concavity calculation again applies.
+
+The proposed ask gives positive expected gain. An ask above $3/4$ gives zero expected gain, because no buyer can meet it.
+
+An ask below $1/12$ sells to every buyer. Raising such an ask toward $1/12$ increases the price without losing any buyers.
+
+Thus, no ask below $1/12$ improves on that endpoint. The interior maximum already gives at least as much as the endpoint.
+
+### Sellers with $c\geq3/4$
+
+Every buyer bids at most $3/4$.
+
+Whenever trade occurs,
+
+```math
+p=\frac{a+b}{2}\leq b\leq\frac34.
+```
+
+A seller with $c\geq3/4$ cannot obtain a positive gain from such a trade.
+
+The proposed strategy gives
+
+```math
+a(c)\geq\frac34.
+```
+
+Its expected gain is zero. Therefore, it is a best response.
+
+This establishes the Bayesian Nash equilibrium.
+
+### A subtle feature of the inactive types
+
+For a buyer with $v<1/4$, the formula gives
+
+```math
+b(v)>v.
+```
+
+This does not cause a loss in equilibrium. The bid remains below every seller’s ask.
+
+For a seller with $c>3/4$, the formula gives
+
+```math
+a(c)<c.
+```
+
+This also causes no loss in equilibrium. The ask remains above every buyer’s bid.
+
+Thus, the straight lines remain valid across the full interval $[0,1]$. Types outside the active ranges have zero trade probability.
+
+## 7. Determine the trade outcome
+
+Substitute the equilibrium strategies into the trade rule:
+
+```math
+b(v)\geq a(c).
+```
+
+Then
+
+```math
 \frac23v+\frac1{12}
-\ge
-\frac23c+\frac14
-\iff
-v-c\ge\frac14.
+\geq
+\frac23c+\frac14.
 ```
 
-Efficient trade would occur whenever $v\ge c$. But in equilibrium, trades with
+Rearrange:
 
 ```math
-0<v-c<\frac14
+\frac23(v-c)\geq\frac16.
 ```
 
-do not occur. Each side waits for a sufficiently favorable deal, and some mutually beneficial trades are lost.
-
-The probability of trade is
+Therefore,
 
 ```math
-\Pr\left(v-c\ge\frac14\right)
-=
-\int_0^{3/4}\left(\frac34-c\right)dc
-=
-\boxed{\frac9{32}}.
+\boxed{v-c\geq\frac14.}
 ```
 
-The interim equilibrium payoffs are
+The intercept difference is $1/6$. Dividing this difference by the common slope $2/3$ gives the required value difference $1/4$.
+
+### The price when trade occurs
+
+The transaction price is
 
 ```math
-u_B(v)
+p(c,v)
 =
+\frac12\left[
+\frac23c+\frac14+
+\frac23v+\frac1{12}
+\right].
+```
+
+Hence,
+
+```math
+\boxed{p(c,v)=\frac{c+v}{3}+\frac16.}
+```
+
+The midpoint rule averages the submitted offers. It gives equal buyer and seller gains only when
+
+```math
+p=\frac{c+v}{2}.
+```
+
+For this equilibrium, that equality requires $c+v=1$.
+
+### The difference between private gain and total gain
+
+When trade occurs, total gain is
+
+```math
+u_S+u_B
+=
+(p-c)+(v-p)
+=
+v-c.
+```
+
+The price determines how the traders divide the gain. It cancels from their combined gain.
+
+Thus, a rule that captures every positive gain would trade whenever $v>c$.
+
+The equilibrium has a stricter requirement. It loses all trades for which
+
+```math
+\boxed{0<v-c<\frac14.}
+```
+
+The diagram shows this lost-trade region. Change the cost or value to inspect a pair.
+
+[![Double Auction Trade](assets/076_trade_regions.png)](https://chatgpt.com/c/6af8cab1-11dc-83e8-9251-912af4886bf8)
+
+### Return to Maya and Ben
+
+Suppose that
+
+```math
+c=0.30,\qquad v=0.70.
+```
+
+Maya asks
+
+```math
+a(0.30)=0.45.
+```
+
+Ben bids
+
+```math
+b(0.70)=0.55.
+```
+
+They trade at
+
+```math
+p=\frac{0.45+0.55}{2}=0.50.
+```
+
+Maya gains $0.20$. Ben also gains $0.20$.
+
+In the bike story, the price is \$500. Each person gains \$200.
+
+Now suppose that
+
+```math
+c=0.40,\qquad v=0.60.
+```
+
+The total possible gain is $0.20$. But the offers are
+
+```math
+a(0.40)=\frac{31}{60}\approx0.5167,
+```
+
+```math
+b(0.60)=\frac{29}{60}\approx0.4833.
+```
+
+The bid is below the ask, so no sale occurs.
+
+A price of $0.50$ would give each person a gain of $0.10$. Yet each chooses an offer before learning the other’s private number.
+
+Each equilibrium offer maximizes expected gain under that uncertainty. The auction permits only one simultaneous offer from each person.
+
+This explains how optimal individual choices can produce a missed sale.
+
+## 8. Measure the effects
+
+The strategies already solve the problem. The following calculations show their economic consequences.
+
+### Trade probability
+
+For a seller with cost $c\leq3/4$, trade requires
+
+```math
+v\geq c+\frac14.
+```
+
+Since $v$ is uniform,
+
+```math
+\Pr(\text{trade}\mid c)=\frac34-c.
+```
+
+Integrate over seller costs:
+
+```math
+\Pr(\text{trade})
+=
+\int_0^{3/4}\left(\frac34-c\right)dc.
+```
+
+Therefore,
+
+```math
+\boxed{\Pr(\text{trade})=\frac9{32}=28.125\%.}
+```
+
+A rule that trades whenever $v\geq c$ has trade probability
+
+```math
+\Pr(v\geq c)=\frac12.
+```
+
+Thus, the equilibrium captures
+
+```math
+\frac{9/32}{1/2}
+=
+\frac9{16}
+=
+56.25\%
+```
+
+of the opportunities for a beneficial trade.
+
+### Expected gain for each private type
+
+Consider an active buyer with $v>1/4$.
+
+This buyer trades with sellers whose costs satisfy
+
+```math
+0\leq c\leq v-\frac14.
+```
+
+The trade probability is therefore
+
+```math
+v-\frac14.
+```
+
+Conditional on trade, the average seller cost is
+
+```math
+\frac{v-1/4}{2}.
+```
+
+Use the equilibrium price formula to calculate the average transaction price:
+
+```math
+\mathbb E[p\mid v,\text{trade}]
+=
+\frac13\left(v+\frac{v-1/4}{2}\right)+\frac16
+=
+\frac v2+\frac18.
+```
+
+The buyer’s average gain per trade is
+
+```math
+v-\mathbb E[p\mid v,\text{trade}]
+=
+\frac12\left(v-\frac14\right).
+```
+
+Multiply this gain by the trade probability:
+
+```math
+\boxed{
+U_B(v)=
 \begin{cases}
-0, & v\le1/4,\\[3pt]
-\frac12\left(v-\frac14\right)^2, & v>1/4,
+0,&v\leq\frac14,\\[4pt]
+\frac12\left(v-\frac14\right)^2,&v>\frac14.
 \end{cases}
+}
 ```
 
-and
+The corresponding seller calculation gives
 
 ```math
-u_S(c)
-=
+\boxed{
+U_S(c)=
 \begin{cases}
-\frac12\left(\frac34-c\right)^2, & c<3/4,\\[3pt]
-0, & c\ge3/4.
+\frac12\left(\frac34-c\right)^2,&c<\frac34,\\[4pt]
+0,&c\geq\frac34.
 \end{cases}
+}
 ```
 
-Ex ante, each side receives
+These expressions also confirm that active types obtain positive expected gains.
+
+### Expected total gain
+
+Before either private number is known, the buyer’s expected gain is
 
 ```math
-\mathbb E[u_B]=\mathbb E[u_S]=\frac9{128}.
+\mathbb E[U_B]
+=
+\frac12\int_{1/4}^{1}
+\left(v-\frac14\right)^2dv
+=
+\frac9{128}.
 ```
 
----
+The seller has the same expected gain:
 
-## Final summary
+```math
+\mathbb E[U_S]=\frac9{128}.
+```
 
-| Quantity | Equilibrium expression |
-| --- | ---: |
-| Seller’s ask | $\displaystyle a^*(c)=\frac23c+\frac14$ |
-| Buyer’s bid | $\displaystyle b^*(v)=\frac23v+\frac1{12}$ |
-| Trade condition | $\displaystyle v-c\ge\frac14$ |
-| Transaction price | $\displaystyle p(c,v)=\frac{c+v}{3}+\frac16$ |
-| Probability of trade | $\displaystyle \frac9{32}$ |
+Therefore,
 
-This is the standard positive-trade linear equilibrium. Technically, because nontrading types are indifferent among many losing bids or asks, their off-trade actions are not unique. If constant functions are also counted as “linear,” weak no-trade equilibria such as $b(v)\equiv0$ and $a(c)\equiv1$ also exist; the solution above is the economically relevant increasing equilibrium with positive probability of trade.
+```math
+\boxed{
+\mathbb E[\text{total gain in equilibrium}]
+=
+\frac9{64}.
+}
+```
+
+If every beneficial trade occurred, expected total gain would be
+
+```math
+\int_0^1\int_c^1(v-c)\,dv\,dc
+=
+\frac16.
+```
+
+The equilibrium therefore captures
+
+```math
+\frac{9/64}{1/6}
+=
+\boxed{\frac{27}{32}=84.375\%}
+```
+
+of the maximum expected total gain.
+
+This percentage exceeds the percentage of trade opportunities captured. The missing trades have small gains, because their value differences are below $1/4$.
+
+## 9. State the equilibrium claim precisely
+
+We have found the standard increasing affine equilibrium with positive trade probability.
+
+The game also has other equilibria. For example,
+
+```math
+a(c)\equiv1,
+\qquad
+b(v)\equiv0
+```
+
+forms an equilibrium with no trade.
+
+Against an ask of $1$, a buyer must pay at least $1$ to cause trade. No buyer has value above $1$.
+
+Against a bid of $0$, a seller can receive at most $0$ by causing trade. No seller has cost below $0$.
+
+Thus, neither person can obtain a positive gain through a unilateral deviation.
+
+For the equilibrium requested in the problem, the substantive result remains:
+
+```math
+\boxed{
+a(c)=\frac23c+\frac14,\qquad
+b(v)=\frac23v+\frac1{12},\qquad
+\text{trade}\iff v-c\geq\frac14.
+}
+```
+
+Each person’s attempt to obtain a better price creates the gap between efficient trade and equilibrium trade.

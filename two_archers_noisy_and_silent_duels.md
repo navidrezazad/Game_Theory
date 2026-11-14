@@ -4,10 +4,10 @@ With your stated tie rules, the results are:
 
 | Version | Equilibrium strategy | Archer 1 wins | Archer 2 wins | Draw |
 | --- | --- | --- | --- | --- |
-| Noisy, with sequential priority | Both plan to fire at $x\approx0.618034$ | $38.1966\%$ | $61.8034\%$ | $0\%$ |
-| Silent | Both use random firing points below $x\approx0.677689$ | $32.2311\%$ | $54.0738\%$ | $13.6951\%$ |
+| Noisy, with sequential priority | Both plan to fire at $x\approx0.618034$ | $38.1966\\%$ | $61.8034\\%$ | $0\\%$ |
+| Silent | Both use random firing points below $x\approx0.677689$ | $32.2311\\%$ | $54.0738\\%$ | $13.6951\\%$ |
 
-The silent strategy has one essential detail. **Archer 2 chooses $x=0$ with probability $6.9045\%$.** Archer 1 has no such probability.
+The silent strategy has one essential detail. **Archer 2 chooses $x=0$ with probability $6.9045\\%$.** Archer 1 has no such probability.
 
 I use short sentences, active voice, and consistent terms, as the STE guidance recommends. I define the mathematical terms below. [asd-ste100.org](https://www.asd-ste100.org/STE_faq.html?utm_source=chatgpt.com)
 

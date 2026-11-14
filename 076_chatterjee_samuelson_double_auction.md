@@ -714,7 +714,7 @@ The equilibrium has a stricter requirement. It loses all trades for which
 
 The diagram shows this lost-trade region. Change the cost or value to inspect a pair.
 
-[![Double Auction Trade](assets/076_trade_regions.png)](https://chatgpt.com/c/6af8cab1-11dc-83e8-9251-912af4886bf8)
+[![Double Auction Trade](assets/076_trade_regions.png)](https://navidrezazad.github.io/Game_Theory/)
 
 ### Return to Maya and Ben
 

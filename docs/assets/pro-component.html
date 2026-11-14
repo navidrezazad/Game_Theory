@@ -1,0 +1,106 @@
+<div id="cs76-trade-map">
+  <style>
+    #cs76-trade-map { color: var(--foreground); }
+    #cs76-trade-map .cs76-chart { display: block; width: 100%; }
+    #cs76-trade-map .cs76-chart text { fill: var(--foreground); font-size: 12px; }
+    #cs76-trade-map .cs76-detail { margin-top: 12px; }
+    #cs76-trade-map .cs76-point { transition: cx 140ms ease, cy 140ms ease; }
+    @media (prefers-reduced-motion: reduce) {
+      #cs76-trade-map .cs76-point { transition: none; }
+    }
+  </style>
+  <h3>Trade regions</h3>
+  <div class="viz-controls">
+    <label class="form-label" for="cs76-cost">Seller cost <i>c</i>: <output id="cs76-cost-value" class="tabular-nums">0.30</output>
+      <input id="cs76-cost" class="form-range" type="range" min="0" max="1" step="0.01" value="0.30" aria-valuetext="0.30">
+    </label>
+    <label class="form-label" for="cs76-value">Buyer value <i>v</i>: <output id="cs76-value-value" class="tabular-nums">0.70</output>
+      <input id="cs76-value" class="form-range" type="range" min="0" max="1" step="0.01" value="0.70" aria-valuetext="0.70">
+    </label>
+  </div>
+  <svg class="cs76-chart" role="img" aria-labelledby="cs76-chart-title cs76-chart-description" viewBox="0 0 632 485" style="height: 485px;">
+    <title id="cs76-chart-title">Trade regions by seller cost and buyer value</title>
+    <desc id="cs76-chart-description">Trade occurs when buyer value exceeds seller cost by at least one quarter. A smaller positive difference gives missed trade. Buyer value below seller cost gives no positive gains.</desc>
+  <polygon points="133,420 531,420 531,22" fill="var(--muted)" opacity="0.65"></polygon><polygon points="133,420 133,320.5 431.5,22 531,22" fill="var(--viz-series-2)" opacity="0.16"></polygon><polygon points="133,320.5 133,22 431.5,22" fill="var(--viz-series-1)" opacity="0.16"></polygon><rect data-chart-frame="" x="127" y="16" width="410" height="410" fill="none" stroke="var(--border)" stroke-width="1"></rect><line x1="133" y1="426" x2="133" y2="430" stroke="var(--border)"></line><text x="133" y="446" text-anchor="start">0</text><line x1="123" y1="420" x2="127" y2="420" stroke="var(--border)"></line><text x="118" y="424" text-anchor="end">0</text><line x1="232.5" y1="426" x2="232.5" y2="430" stroke="var(--border)"></line><text x="232.5" y="446" text-anchor="middle">0.25</text><line x1="123" y1="320.5" x2="127" y2="320.5" stroke="var(--border)"></line><text x="118" y="324.5" text-anchor="end">0.25</text><line x1="332" y1="426" x2="332" y2="430" stroke="var(--border)"></line><text x="332" y="446" text-anchor="middle">0.5</text><line x1="123" y1="221" x2="127" y2="221" stroke="var(--border)"></line><text x="118" y="225" text-anchor="end">0.5</text><line x1="431.5" y1="426" x2="431.5" y2="430" stroke="var(--border)"></line><text x="431.5" y="446" text-anchor="middle">0.75</text><line x1="123" y1="121.5" x2="127" y2="121.5" stroke="var(--border)"></line><text x="118" y="125.5" text-anchor="end">0.75</text><line x1="531" y1="426" x2="531" y2="430" stroke="var(--border)"></line><text x="531" y="446" text-anchor="end">1</text><line x1="123" y1="22" x2="127" y2="22" stroke="var(--border)"></line><text x="118" y="26" text-anchor="end">1</text><line x1="133" y1="420" x2="531" y2="22" stroke="var(--muted-foreground)" stroke-width="1" stroke-dasharray="4 4"></line><line x1="133" y1="320.5" x2="431.5" y2="22" stroke="var(--viz-series-1)" stroke-width="1.5"></line><text x="216.57999999999998" y="105.57999999999998" text-anchor="middle">Trade</text><text x="324.03999999999996" y="181.20000000000002" text-anchor="middle" transform="rotate(-45 324.03999999999996 181.20000000000002)">Missed trade</text><text x="419.56" y="297.58000000000004" text-anchor="middle">No positive</text><text x="419.56" y="313.58000000000004" text-anchor="middle">gains</text><text class="axis-title" data-axis="x" x="332" y="474" text-anchor="middle">Seller cost c (units)</text><text class="axis-title" data-axis="y" x="79" y="221" text-anchor="middle" transform="rotate(-90 79 221)">Buyer value v (units)</text><circle class="cs76-point" r="5" cx="252.39999999999998" cy="141.40000000000003" fill="var(--foreground)" stroke="var(--background)" stroke-width="2"></circle></svg>
+  <div id="cs76-detail" class="cs76-detail tabular-nums" aria-live="polite">Trade · Ask 0.450 · Bid 0.550 · Price 0.500</div>
+  <script>
+    (() => {
+      const root = document.getElementById('cs76-trade-map');
+      const svg = root.querySelector('.cs76-chart');
+      const costInput = root.querySelector('#cs76-cost');
+      const valueInput = root.querySelector('#cs76-value');
+      const costValue = root.querySelector('#cs76-cost-value');
+      const buyerValue = root.querySelector('#cs76-value-value');
+      const detail = root.querySelector('#cs76-detail');
+      const ns = 'http://www.w3.org/2000/svg';
+      let x;
+      let y;
+      let point;
+      function element(name, attrs, text) {
+        const el = document.createElementNS(ns, name);
+        for (const [key, val] of Object.entries(attrs || {})) el.setAttribute(key, String(val));
+        if (text !== undefined) el.textContent = text;
+        svg.appendChild(el);
+        return el;
+      }
+      function update() {
+        const c = Number(costInput.value);
+        const v = Number(valueInput.value);
+        const ask = 2 * c / 3 + 1 / 4;
+        const bid = 2 * v / 3 + 1 / 12;
+        const trade = v - c >= 0.25 - 1e-10;
+        const status = trade ? 'Trade' : (v > c ? 'Missed trade' : 'No positive gains');
+        costValue.value = c.toFixed(2);
+        buyerValue.value = v.toFixed(2);
+        costInput.setAttribute('aria-valuetext', c.toFixed(2));
+        valueInput.setAttribute('aria-valuetext', v.toFixed(2));
+        detail.textContent = status + ' · Ask ' + ask.toFixed(3) + ' · Bid ' + bid.toFixed(3) + (trade ? ' · Price ' + ((ask + bid) / 2).toFixed(3) : ' · No sale');
+        if (point) {
+          point.setAttribute('cx', x(c));
+          point.setAttribute('cy', y(v));
+        }
+      }
+      function draw() {
+        const width = root.getBoundingClientRect().width;
+        if (!width) return;
+        const side = Math.min(410, Math.max(180, width - 86));
+        const left = Math.max(64, (width - side) / 2 + 16);
+        const top = 16;
+        const height = side + 75;
+        x = c => left + 6 + c * (side - 12);
+        y = v => top + side - 6 - v * (side - 12);
+        svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+        svg.style.height = height + 'px';
+        svg.querySelectorAll(':scope > :not(title):not(desc)').forEach(el => el.remove());
+        const polygon = (coords, attrs) => element('polygon', {
+          points: coords.map(([c, v]) => x(c) + ',' + y(v)).join(' '), ...attrs
+        });
+        polygon([[0,0],[1,0],[1,1]], { fill: 'var(--muted)', opacity: '0.65' });
+        polygon([[0,0],[0,0.25],[0.75,1],[1,1]], { fill: 'var(--viz-series-2)', opacity: '0.16' });
+        polygon([[0,0.25],[0,1],[0.75,1]], { fill: 'var(--viz-series-1)', opacity: '0.16' });
+        element('rect', { 'data-chart-frame': '', x: left, y: top, width: side, height: side, fill: 'none', stroke: 'var(--border)', 'stroke-width': 1 });
+        const ticks = width < 440 ? [0, 0.5, 1] : [0, 0.25, 0.5, 0.75, 1];
+        for (const t of ticks) {
+          element('line', { x1: x(t), y1: top + side, x2: x(t), y2: top + side + 4, stroke: 'var(--border)' });
+          element('text', { x: x(t), y: top + side + 20, 'text-anchor': t === 0 ? 'start' : t === 1 ? 'end' : 'middle' }, String(t));
+          element('line', { x1: left - 4, y1: y(t), x2: left, y2: y(t), stroke: 'var(--border)' });
+          element('text', { x: left - 9, y: y(t) + 4, 'text-anchor': 'end' }, String(t));
+        }
+        element('line', { x1: x(0), y1: y(0), x2: x(1), y2: y(1), stroke: 'var(--muted-foreground)', 'stroke-width': 1, 'stroke-dasharray': '4 4' });
+        element('line', { x1: x(0), y1: y(0.25), x2: x(0.75), y2: y(1), stroke: 'var(--viz-series-1)', 'stroke-width': 1.5 });
+        element('text', { x: x(0.21), y: y(0.79), 'text-anchor': 'middle' }, 'Trade');
+        element('text', { x: x(0.48), y: y(0.60), 'text-anchor': 'middle', transform: 'rotate(-45 ' + x(0.48) + ' ' + y(0.60) + ')' }, 'Missed trade');
+        element('text', { x: x(0.72), y: y(0.29) - 7, 'text-anchor': 'middle' }, 'No positive');
+        element('text', { x: x(0.72), y: y(0.29) + 9, 'text-anchor': 'middle' }, 'gains');
+        element('text', { class: 'axis-title', 'data-axis': 'x', x: left + side / 2, y: top + side + 48, 'text-anchor': 'middle' }, 'Seller cost c (units)');
+        element('text', { class: 'axis-title', 'data-axis': 'y', x: left - 48, y: top + side / 2, 'text-anchor': 'middle', transform: 'rotate(-90 ' + (left - 48) + ' ' + (top + side / 2) + ')' }, 'Buyer value v (units)');
+        point = element('circle', { class: 'cs76-point', r: 5, cx: x(Number(costInput.value)), cy: y(Number(valueInput.value)), fill: 'var(--foreground)', stroke: 'var(--background)', 'stroke-width': 2 });
+        update();
+      }
+      costInput.addEventListener('input', update);
+      valueInput.addEventListener('input', update);
+      new ResizeObserver(draw).observe(root);
+      draw();
+    })();
+  </script>
+</div>

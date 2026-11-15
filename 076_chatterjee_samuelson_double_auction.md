@@ -1,5 +1,21 @@
 # 76 — Chatterjee–Samuelson Double Auction
 
+## Problem statement
+
+One risk-neutral seller privately observes cost $c\sim U[0,1]$, and one risk-neutral buyer privately observes value $v\sim U[0,1]$, independently. Each knows their own private number and the distribution of the other person's number.
+
+They act simultaneously. The seller submits an ask $a(c)$ and the buyer submits a bid $b(v)$. Trade occurs if $b\geq a$, including equality, at price
+
+```math
+p=\frac{a+b}{2}.
+```
+
+If trade occurs, the seller receives payoff $p-c$ and the buyer receives $v-p$. Otherwise both receive payoff $0$.
+
+**Question.** Find linear Bayesian Nash equilibrium strategies for the seller and buyer.
+
+## Solution
+
 The standard linear Bayesian Nash equilibrium is
 
 ```math

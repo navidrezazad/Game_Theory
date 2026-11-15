@@ -1,3 +1,23 @@
+# Noisy and Silent Archer Duels
+
+## Problem statement
+
+Two archers approach each other. The state $x$ decreases continuously from $1$ to $0$. Each archer has one arrow and chooses when to fire. Their hit probabilities at state $x$ are
+
+```math
+p_1(x)=1-x,\qquad p_2(x)=1-x^2.
+```
+
+A hit eliminates the opponent. Each player maximizes the probability of being the sole winner; a draw gives both players payoff $0$. Hit events are independent.
+
+**Noisy version.** A missed shot is heard, so the surviving armed player can respond. For an exact tie, use fair random sequential priority: each archer has probability $1/2$ of shooting first. The first shot resolves; if it misses, the other archer observes the miss and can wait before firing.
+
+**Silent version.** A missed shot is not observed, so firing plans cannot react to it. Exact ties use simultaneous independent shots. Both-hit and both-miss outcomes are draws.
+
+**Question.** Find and explain the equilibrium strategies for both versions, including mixed strategies where needed, and compare their outcomes. Also explain how replacing sequential priority with literal simultaneous independent fire changes the noisy-duel conclusion.
+
+## Solution
+
 **The noisy duel has a fixed firing point. The silent duel requires random firing points.**
 
 With your stated tie rules, the results are:

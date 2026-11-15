@@ -1,5 +1,25 @@
 # The Spillway Alarm
 
+## Problem statement
+
+Two stations protect the same valley. Time $t$ runs from $0$ to $1$. A flood arrives at $T\sim U(0,1)$, independently of the stations' private randomizations.
+
+Either station can launch one drone. A launch strictly before $T$ protects both stations with certainty. Each station receives safety value $1$. A station pays its own launch cost if its drone executes:
+
+```math
+c_1=\frac13,\qquad c_2=\frac12.
+```
+
+If the valley is protected, a station that launches receives $1-c_i$ and a station that does not launch receives $1$. If both drones execute, both stations pay their own costs. If the flood arrives before any launch, both receive $0$ and all later timers are destroyed.
+
+**Open-radio version.** Launches are observed immediately. A station cancels any later launch at no cost after a rival launch. A pure deadline in $[0,1]$ means to launch then if neither a flood nor a rival launch has occurred first; a station may also choose never to launch. An exact simultaneous launch makes both stations pay.
+
+**Blackout version.** At $t=0$, each station privately commits to an unchangeable timer $X_i\in[0,1]\cup\lbrace\infty\rbrace$, where $\infty$ means never launch. Rival launches are unobserved. Once one drone protects the valley, every other finite timer still executes later and incurs its cost. A timer at $1$ may therefore execute redundantly, unlike $\infty$.
+
+**Question.** Find and explain the pure and mixed Nash equilibria in independent deadline or timer strategies for both versions, derive the best-response conditions, and compare the resulting outcomes.
+
+## Solution
+
 **The blackout game has two pure equilibria and one mixed equilibrium. The open-radio game has more equilibria.**
 
 In the radio equilibrium with no point masses, the valley is safe with probability $3/4$. In the blackout mixed equilibrium, that probability is $5/6$.

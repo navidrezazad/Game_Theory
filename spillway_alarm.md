@@ -975,5 +975,3 @@ The radio list is therefore exhaustive:
 3. A sure launch at zero with any standby mixture that satisfies condition $(*)$.
 
 The blackout list contains only its two pure equilibria and its unique mixed equilibrium.
-
-*Style reference: ASD-STE100 recommends short sentences and one topic per paragraph.* [asd-ste100.org](https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf?utm_source=chatgpt.com)

@@ -29,8 +29,6 @@ With your stated tie rules, the results are:
 
 The silent strategy has one essential detail. **Archer 2 chooses $x=0$ with probability $6.9045\\%$.** Archer 1 has no such probability.
 
-I use short sentences, active voice, and consistent terms, as the STE guidance recommends. I define the mathematical terms below. [asd-ste100.org](https://www.asd-ste100.org/STE_faq.html?utm_source=chatgpt.com)
-
 ## 1. The story: a miss can reveal valuable information
 
 Imagine a line with marks from $1$ to $0$. The archers move toward the zero mark.

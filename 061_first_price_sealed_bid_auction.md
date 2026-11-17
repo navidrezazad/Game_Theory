@@ -20,7 +20,7 @@ The seller’s expected revenue is
 
 Each bidder bids below their value. The difference, $v/N$, is their profit if they win.
 
-We assume nonnegative bids and no reserve price. The explanation uses short sentences, active voice, and defined technical terms, following ASD-STE100 principles. [asd-ste100.org](https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf?utm_source=chatgpt.com) [asd-ste100.org](https://asd-ste100.org/STE_faq.html?utm_source=chatgpt.com)
+We assume nonnegative bids and no reserve price.
 
 ## 1. The story: Maya wants a telescope
 

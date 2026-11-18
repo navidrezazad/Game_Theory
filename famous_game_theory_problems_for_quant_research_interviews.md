@@ -10,6 +10,7 @@ A standalone bank of **170 public, classical, or semi-classical game-theory prob
 |---:|---|---|---|---|
 | 61 | First-Price Sealed-Bid Auction | ✅ Solved | [Read solution](061_first_price_sealed_bid_auction.md) | [Source](https://chatgpt.com/c/6af94b8c-7ee4-83e8-934e-72fb51fad2b9) |
 | 62 | Second-Price / Vickrey Auction | ✅ Solved | [Read solution](062_second_price_vickrey_auction.md) | [Source](https://chatgpt.com/c/6afa9b3f-79e0-83e8-bd30-d56595435e2b) |
+| 68 | Myerson Optimal Reserve Price | ✅ Solved | [Read solution](068_myerson_optimal_reserve_price.md) · [Explore plot](https://navidrezazad.github.io/Game_Theory/068_myerson_optimal_reserve_price/) | [Source](https://chatgpt.com/c/6afd412b-a7b8-83e8-9113-f7438e12b839) |
 | 76 | Chatterjee–Samuelson Double Auction | ✅ Solved | [Read solution](076_chatterjee_samuelson_double_auction.md) · [Play mini-game](https://navidrezazad.github.io/Game_Theory/) | [Source](https://chatgpt.com/c/6af8cab1-11dc-83e8-9251-912af4886bf8) |
 | S-001 | Noisy and Silent Archer Duel | ✅ Solved | [Read solution](two_archers_noisy_and_silent_duels.md) | [Source](https://chatgpt.com/c/6af8cce7-95a4-83e8-b6cc-680821f83180) |
 | S-002 | The Spillway Alarm | ✅ Solved | [Read solution](spillway_alarm.md) | [Source](https://chatgpt.com/c/6af8ccff-f02c-83e8-aa36-bda127a3da1b) |
